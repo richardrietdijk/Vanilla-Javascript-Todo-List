@@ -1,0 +1,51 @@
+/* CSS Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Arial, Helvetica, sans-serif;
+  line-height: 1.4;
+  text-align: center;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* done */
+
+.done span {
+  text-decoration: line-through;
+}
+
+/* delete button */
+
+.delete-todo{
+  display: none;
+}
+
+.done .delete-todo {
+  display: inline;
+} 
+
+/* empty state */
+.empty {
+  display: none;
+}
+
+.todo-list:empty {
+  display: none;
+}
+
+.done-list:empty {
+  display: none;
+}
+
+
+.todo-list:empty + .donelist:empty + .empty {
+  display: inline;
+}
