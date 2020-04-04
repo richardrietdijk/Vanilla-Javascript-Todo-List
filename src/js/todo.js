@@ -1,12 +1,30 @@
-/* Todo Array */
+/* Todo Array. onload get localstorage. then loop over array data and display */
 let todoArray = [];
-
-localStorage.setItem('serialized', JSON.stringify(todoArray));
-const data = JSON.parse(localStorage.getItem('serialized'));
+if (JSON.parse(localStorage.getItem('serialized')) !== null) {
+  todoArray = JSON.parse(localStorage.getItem('serialized'));
+}
 
 /* Selectors */
 const todoList = document.querySelector('.todo-list');
 const addButton = document.querySelector('.add')
+
+/* Read from stored array and display in ul */
+
+todoArray.forEach(todo => 
+  todoList.insertAdjacentHTML('afterbegin', `
+  <li class="todo-item" data-key="${todo.id}">
+      <input id="${todo.id}" type="checkbox" class="tick"/>
+      <label for="${todo.id}"></label>
+      <span>${todo.text}</span>
+      <button class="delete-todo">
+        Delete
+      </button>
+    </li>
+  `)
+  );
+
+// localStorage.setItem('serialized', JSON.stringify(todoArray));
+
 
 /* adding todo function*/
 
@@ -19,6 +37,7 @@ function addTodo(text) {
   };
 
   todoArray.push(todo);
+  localStorage.setItem('serialized', JSON.stringify(todoArray));
 
   /* put inside the ul on the page, as first li (afterbegin) */
   todoList.insertAdjacentHTML('afterbegin', `
@@ -66,10 +85,6 @@ todoList.addEventListener('click', event => {
       const item = document.querySelector(`[data-key='${key}']`);
       if (todoArray[index].done) {
         item.classList.add('done');
-        console.log('Element.parentelement:', item)
-        
-        
-        // parent.appendChild(element.parentElement);
       } else {
         item.classList.remove('done');
       }
@@ -84,7 +99,7 @@ todoList.addEventListener('click', event => {
   const todoItem = document.querySelector(`[data-key='${key}']`);
   todoItem.remove();
   }
-
+  localStorage.setItem('serialized', JSON.stringify(todoArray));
 
 });
 
