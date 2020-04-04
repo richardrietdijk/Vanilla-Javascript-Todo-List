@@ -1,3 +1,19 @@
+/* Div (main content)
+	header.header
+		.item = input text thing
+		.add = add button
+	main.container
+		ul.todo-list
+			li.todo-item
+				.check (checkbox)
+				label (invisible)
+				span (todo text)
+				button.delete-todo
+		.empty (empty state container)
+
+ */
+
+
 /* CSS Reset */
 * {
   box-sizing: border-box;

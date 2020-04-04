@@ -18,7 +18,26 @@
     </header>
     <main class="container">
       <!-- todo list -->
-      <ul class="todo-list"></ul>
+      <ul class="todo-list">
+        <li class="todo-item" data-key="${obj.id}">
+          <input id="${obj.id}" type="checkbox" class="check"/>
+          <label for="${obj.id}"></label>
+          <span>${obj.text}</span>
+          <button class="delete-todo">Delete</button>
+        </li>
+        <li class="todo-item" data-key="${obj.id}">
+          <input id="${obj.id}" type="checkbox" class="check"/>
+          <label for="${obj.id}"></label>
+          <span>${obj.text}</span>
+          <button class="delete-todo">Delete</button>
+        </li>
+        <li class="todo-item" data-key="${obj.id}">
+          <input id="${obj.id}" type="checkbox" class="check"/>
+          <label for="${obj.id}"></label>
+          <span>${obj.text}</span>
+          <button class="delete-todo">Delete</button>
+        </li>
+      </ul>
       <!-- Empty State -->
       <div class="empty">&#9757;<br />Please add your todo here!</div>
     </main>

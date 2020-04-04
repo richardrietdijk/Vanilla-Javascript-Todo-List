@@ -1,4 +1,4 @@
-/* Todo Array. onload get localstorage. then loop over array data and display */
+/* Set up the Todo Array / Retrieves localstorage. */
 let todoArray = [];
 if (JSON.parse(localStorage.getItem('serialized')) !== null) {
   todoArray = JSON.parse(localStorage.getItem('serialized'));
@@ -6,30 +6,26 @@ if (JSON.parse(localStorage.getItem('serialized')) !== null) {
 
 /* Selectors */
 const todoList = document.querySelector('.todo-list');
-const addButton = document.querySelector('.add')
+const addButton = document.querySelector('.add');
+const inputItem = document.querySelector('.item');
 
-/* Read from stored array and display in ul */
-
-todoArray.forEach(todo => 
+/* Helper Function: insert to html from array */
+const insertHtml = (obj) => {
   todoList.insertAdjacentHTML('afterbegin', `
-  <li class="todo-item" data-key="${todo.id}">
-      <input id="${todo.id}" type="checkbox" class="tick"/>
-      <label for="${todo.id}"></label>
-      <span>${todo.text}</span>
-      <button class="delete-todo">
-        Delete
-      </button>
-    </li>
-  `)
-  );
+<li class="todo-item" data-key="${obj.id}">
+    <input id="${obj.id}" type="checkbox" class="check"/>
+    <label for="${obj.id}"></label>
+    <span>${obj.text}</span>
+    <button class="delete-todo">Delete</button>
+  </li>
+`);
+};
 
-// localStorage.setItem('serialized', JSON.stringify(todoArray));
+/* Loop over stored array and display todos in DOM */
+todoArray.forEach((todo) => insertHtml(todo));
 
-
-/* adding todo function*/
-
-function addTodo(text) {
-  /* create a todo object and push it to the array*/
+/* adding a todo function. creates a todo object and pushes it to the array */
+const addTodo = (text) => {
   const todo = {
     id: Date.now(),
     text,
@@ -39,68 +35,50 @@ function addTodo(text) {
   todoArray.push(todo);
   localStorage.setItem('serialized', JSON.stringify(todoArray));
 
-  /* put inside the ul on the page, as first li (afterbegin) */
-  todoList.insertAdjacentHTML('afterbegin', `
-  <li class="todo-item" data-key="${todo.id}">
-      <input id="${todo.id}" type="checkbox" class="tick"/>
-      <label for="${todo.id}"></label>
-      <span>${todo.text}</span>
-      <button class="delete-todo">
-        Delete
-      </button>
-    </li>
-  `);
-}
+  /* then push to HTML */
+  insertHtml(todo);
+};
 
-/* click add button when pressing enter key */
-const inputItem = document.querySelector('.item')
+/* Helper Function: click the "add button" when pressing "enter key" */
 inputItem.addEventListener('keyup', (event) => {
-    if (event.keyCode === 13) {
-        event.preventDefault();
-        document.querySelector('.add').click();
-    }
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.querySelector('.add').click();
+  }
 });
 
-/* add todo to list */
+/* add a todo */
 addButton.addEventListener('click', (event) => {
   event.preventDefault();
-  const inputItem = document.querySelector('.item')
-  const value = inputItem.value;
+  const { value } = inputItem;
   if (value) {
     addTodo(value);
     inputItem.value = '';
-    focus();
+    inputItem.focus();
   }
 });
 
-todoList.addEventListener('click', event => {
-  /* marking as done / undone */
-  if (event.target.classList.contains('tick')) {
-    const key = event.target.parentElement.dataset.key;
-      //return index number of object that matches inputkey === id value 
-      const index = todoArray.findIndex(obj => obj.id === +(key));
-      // "flip" done value 
-      todoArray[index].done = !todoArray[index].done;
-      // add / remove class depending on done value
-      const item = document.querySelector(`[data-key='${key}']`);
-      if (todoArray[index].done) {
-        item.classList.add('done');
-      } else {
-        item.classList.remove('done');
-      }
-    
+/* Marking as Done / undone */
+todoList.addEventListener('click', (event) => {
+  if (event.target.classList.contains('check')) {
+    const { key } = event.target.parentElement.dataset;
+    const index = todoArray.findIndex((obj) => obj.id === +(key)); // get index where id === key
+    todoArray[index].done = !todoArray[index].done; // "flip" done value of todo
+    const item = document.querySelector(`[data-key='${key}']`); // add / remove class depending on done value
+    if (todoArray[index].done) {
+      item.classList.add('done');
+    } else {
+      item.classList.remove('done');
+    }
   }
   /* delete completed */
   if (event.target.classList.contains('delete-todo')) {
-    const key = event.target.parentElement.dataset.key;
-  // make new array w objects (omitting the to be deleted object) 
-  todoArray = todoArray.filter(obj => obj.id !== +(key));
-  //remove item from dom, using complex selector to select the element w the correct key
-  const todoItem = document.querySelector(`[data-key='${key}']`);
-  todoItem.remove();
+    const { key } = event.target.parentElement.dataset;
+    todoArray = todoArray.filter((obj) => obj.id !== +(key)); // new array minus matched key object
+    const todoItem = document.querySelector(`[data-key='${key}']`); // remove from DOM w/ complex selector
+    todoItem.remove();
   }
+
+  /* Save to localStorage */
   localStorage.setItem('serialized', JSON.stringify(todoArray));
-
 });
-
-
