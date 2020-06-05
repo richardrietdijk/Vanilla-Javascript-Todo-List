@@ -6,42 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>&lt;/salt&gt; :: ToDo</title>
   <link rel="stylesheet" type="text/css" href="./style/todo.css">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,900&display=swap" rel="stylesheet">
   <script defer src="./js/todo.js"></script>
 </head>
 
 <body>
-  <!-- search form -->
   <div class="main-content">  
+    <h1 class="title">Todo App</h1>
+    <!-- search form -->
     <header class="header">
       <input type="text" placeholder="Enter your todo..." class="item">
-      <button class="add">Add</button>
+      <button class="add"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="45.402px" height="45.402px" viewBox="0 0 45.402 45.402" style="enable-background:new 0 0 45.402 45.402;" xml:space="preserve"><g><path d="M41.267,18.557H26.832V4.134C26.832,1.851,24.99,0,22.707,0c-2.283,0-4.124,1.851-4.124,4.135v14.432H4.141c-2.283,0-4.139,1.851-4.138,4.135c-0.001,1.141,0.46,2.187,1.207,2.934c0.748,0.749,1.78,1.222,2.92,1.222h14.453V41.27c0,1.142,0.453,2.176,1.201,2.922c0.748,0.748,1.777,1.211,2.919,1.211c2.282,0,4.129-1.851,4.129-4.133V26.857h14.435c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z"/></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg></button>
     </header>
     <main class="container">
       <!-- todo list -->
-      <ul class="todo-list">
-        <li class="todo-item" data-key="${obj.id}">
-          <input id="${obj.id}" type="checkbox" class="check"/>
-          <label for="${obj.id}"></label>
-          <span>${obj.text}</span>
-          <button class="delete-todo">Delete</button>
-        </li>
-        <li class="todo-item" data-key="${obj.id}">
-          <input id="${obj.id}" type="checkbox" class="check"/>
-          <label for="${obj.id}"></label>
-          <span>${obj.text}</span>
-          <button class="delete-todo">Delete</button>
-        </li>
-        <li class="todo-item" data-key="${obj.id}">
-          <input id="${obj.id}" type="checkbox" class="check"/>
-          <label for="${obj.id}"></label>
-          <span>${obj.text}</span>
-          <button class="delete-todo">Delete</button>
-        </li>
-      </ul>
+      <ul class="todo-list"></ul>
       <!-- Empty State -->
-      <div class="empty">&#9757;<br />Please add your todo here!</div>
+      <div class="empty">
+        <h2>You have no todos yet.</h2>
+        <p>Type a new one and tap the "+" button on top to add a new todo.</p>
+      </div>
     </main>
   </div>
 </body>
-
 </html>
