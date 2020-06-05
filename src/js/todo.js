@@ -12,19 +12,25 @@ const inputItem = document.querySelector('.item'); // The form input field
 /* Helper Function: insert to html from array */
 const insertHtml = (obj) => {
   if (obj.done) {
-    todoList.insertAdjacentHTML('afterbegin', `
+    todoList.insertAdjacentHTML(
+      'afterbegin',
+      `
     <li class="todo-item check done" data-key="${obj.id}">
         <span>${obj.text}</span>
         <div class="delete-todo">&#x274C;</div>
       </li>
-    `);
+    `
+    );
   } else {
-    todoList.insertAdjacentHTML('afterbegin', `
+    todoList.insertAdjacentHTML(
+      'afterbegin',
+      `
     <li class="todo-item check" data-key="${obj.id}">
         <span>${obj.text}</span>
         <div class="delete-todo">&#x274C;</div>
       </li>
-    `);
+    `
+    );
   }
 };
 
@@ -67,7 +73,7 @@ addButton.addEventListener('click', (event) => {
 todoList.addEventListener('click', (event) => {
   if (event.target.classList.contains('check')) {
     const { key } = event.target.dataset;
-    const index = todoArray.findIndex((obj) => obj.id === +(key));
+    const index = todoArray.findIndex((obj) => obj.id === +key);
     todoArray[index].done = !todoArray[index].done;
     const item = document.querySelector(`[data-key='${key}']`);
     if (todoArray[index].done) {
@@ -79,7 +85,7 @@ todoList.addEventListener('click', (event) => {
   /* delete completed */
   if (event.target.classList.contains('delete-todo')) {
     const { key } = event.target.parentElement.dataset;
-    todoArray = todoArray.filter((obj) => obj.id !== +(key));
+    todoArray = todoArray.filter((obj) => obj.id !== +key);
     const todoItem = document.querySelector(`[data-key='${key}']`);
     todoItem.remove();
   }

@@ -42,6 +42,7 @@ a {
 
 .add {
   fill: rgb(29, 153, 255);
+  background-color: rgb(255, 255, 255);
   border: 0;
   cursor: pointer;
   animation: rotation 2s 2s linear;
